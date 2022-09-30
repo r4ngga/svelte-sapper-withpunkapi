@@ -1,36 +1,50 @@
 <script type="text/javascript">
     import fetch from 'node-fetch';
+import Slug from '../blog/[slug].svelte';
    
     let datalength = Array();
+    let posts = [];
+    let totalPages = 13; //initiate by myself, because this API only reach 13 page
+    let currentPage = 1;
+    let pages = [];
+    let tiaphalaman;
+    let total ; 
+
+   function createPagesArray(total){
+    let arr = [];
+
+    for(let i = 1; i <= total; i++){
+        arr.push(i);
+    }
+
+    return arr;
+   }
        
+   function changesPage(page){
+     fetch(`https://api.punkapi.com/v2/beers?page=${page}&per_page=25`)
+       .then(res => {
+         return res.json();
+       }).then( result => {
+          datalength = result;
+          currentPage = page;
+       })
+   }
 
    function callProductBeer(){
-        const prod = "https://api.punkapi.com/v2/beers";
+        const prod = "https://api.punkapi.com/v2/beers?page=1&per_page=25";
         // var results = document.getElementById("results");
        fetch(prod)
         .then(response => response.json())
         .then((data) => {
-            
             for (let i = 0; i < data.length; i++) { 
                 datalength = data;
-                console.log(data[i].name);
+                // console.log(data[i].name);
             }
 
-            // data.forEach((result) => {
-            // var brewed = result.first_brewed; 
-            // var brewed_year = parseInt(brewed.substring(brewed.indexOf("/")+1));   
-            // var ingredients = result.ingredients.malt;
-
-            // console.log(result);
-            // console.log(result.name, brewed_year, ingredients);
-
-            // if((result.abv > 5 && result.abv<11) && brewed_year>=2015) {
-            //     const beers = '<li><img src="'+result.image_url+'" alt=""><p>'+result.name+' - '+ingredients[0].name+'</p></li>';
-            //     results.insertAdjacentHTML("beforeend", beers);  
-            // }
-            // datalength = result;  
-            // console.log(datalength);       
-            // });
+           pages = createPagesArray(totalPages);
+        //    console.log(pages);
+            // totalPages = data.length/5;
+            // console.log(totalPages);
             
         });
           
@@ -48,21 +62,6 @@
 
 <p>This is the 'product' page. There's will be show a product.</p>
 
-<!-- <div class="show-product">
-    {#each datalength as product}
-    <div class="items">
-        <div class="product">
-            <div class="img-div">
-                <img src="{product.image_url}" class="img-show" alt="">
-                
-            </div>
-            <div class="name-product">
-                {product.name}
-            </div>
-        </div>
-    </div>
-    {/each}
-</div> -->
 
 <div class="show-product">
     {#each datalength as product}
@@ -70,6 +69,7 @@
         <img class="img-div" src="{product.image_url}" alt="">
 
         <div class="container">
+            <h4><a class="product-name" rel="prefetch" href="produk/{product.id}">detail</a></h4>
             <h4 class="name-product"><b>{product.name}</b></h4>
             <p class="product-description">{product.description}</p> 
         </div>
@@ -78,7 +78,14 @@
 </div>
 
 <div class="page-nav">
-    
+    <p>You're in page {currentPage} from {totalPages} pages</p>
+    <ul class="pagination">
+        {#each pages as page}
+            <li class="paginate-button">
+                <button class="page-button" on:click="{ () => changesPage(page) }">{page}</button>
+            </li>
+        {/each}
+    </ul>
 </div>
 
 <style>
@@ -177,6 +184,45 @@
     .pagination{
         margin-left: auto;
         margin-right: auto;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: inline-flex;
+        padding: 2ch;
+    }
+
+    .paginate-button{
+        list-style-type: none;
+        padding: 0.5ch;
+        /* margin: 0; */
+    }
+
+    .page-button{
+        padding: 1ch;
+        font-family: 'Roboto', sans-serif;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        color: #000;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        /* border: 0.5 solid #2d2d2d;
+        border-radius: 1em;
+        box-shadow: 1px 1px #888888;        
+        align-self: center; */
+    }
+
+    .page-button:hover{
+        background-color: #2EE59D;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-5px);
     }
 
     nav > ul {

@@ -5,6 +5,9 @@
 </script>
 
 <style>
+	@tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 	main {
 		position: relative;
 		max-width: 56em;

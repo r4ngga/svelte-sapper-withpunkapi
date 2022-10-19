@@ -48,6 +48,8 @@
 	}
 </style>
 
+<!-- <link href="/dist/app.css" rel="stylesheet"> -->
+
 <nav>
 	<ul>
 		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>

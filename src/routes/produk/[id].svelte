@@ -78,6 +78,14 @@
         </div>
         <div class="row-container">
             <div class="col-item">
+                Method:
+            </div>
+            <div class="col-item">
+                {beer.method}
+            </div>
+        </div>
+        <div class="row-container">
+            <div class="col-item">
                 Food Pair :
             </div>
             <div class="col-item">
@@ -100,6 +108,12 @@
                 {beer.contributed_by}
             </div>
         </div>
+        <div class="row-center">
+            <!-- <div class="col-center"> -->
+                <button id="svelte" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Order </button>
+            <!-- </div> -->
+            
+        </div>
     </div>
     
 </div>
@@ -116,14 +130,16 @@
         justify-content: center;
     }
 
-    /* .items{
-        display: flex;
-        border-bottom: 1px solid #cacaca;
-        padding-bottom: 1rem;
-        padding-top: 1rem;
-        height: 100%;
-        max-height: 500px;
-    } */
+    .button-order{
+        /* display: flex; */
+        background-color: #ADD8E6;
+        text-align: center;
+        padding: 4px;
+        color: #191970;
+        font-size: medium;
+        border-radius: 4px;
+        border: 1px groove #F8F8FF;
+    }
 
     .product-description{
         margin-left: auto;
@@ -196,8 +212,27 @@
         row-gap: 50px;
         grid-template-columns: auto auto auto;
         /* background-color: #DCDCDC; */
+        padding: 4px;
+    }
+
+    .row-center{
+        display: grid;
+        row-gap: 50px;
+        grid-template-columns: auto;
+        /* background-color: #DCDCDC; */
         padding: 5px;
     }
+
+    /* .col-center  `{ */
+        /* font-size: 30px; */
+        /* border: 1px solid rgba(0, 0, 0, 0.8); */
+        /* background-color: rgba(255, 255, 255, 0.8);        
+        padding: 5px;
+        justify-content: center;
+        justify-self: center;
+        
+        text-align: left;
+    } */
 
     .col-item {
         background-color: rgba(255, 255, 255, 0.8);
@@ -207,15 +242,15 @@
         text-align: left;
     }
 
-    .page-nav{
+    /* .page-nav{
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 4ch;
         margin-top: 4ch;
         padding-top: 2ch;
-    }
+    } */
     
-    .pagination{
+    /* .pagination{
         margin-left: auto;
         margin-right: auto;
         list-style-type: none;
@@ -223,15 +258,15 @@
         margin: 0;
         display: inline-flex;
         padding: 2ch;
-    }
+    } */
 
-    .paginate-button{
+    /* .paginate-button{
         list-style-type: none;
         padding: 0.5ch;
-        /* margin: 0; */
-    }
+        
+    } */
 
-    .page-button{
+    /* .page-button{
         padding: 1ch;
         font-family: 'Roboto', sans-serif;
         font-size: 11px;
@@ -246,21 +281,17 @@
         transition: all 0.3s ease 0s;
         cursor: pointer;
         outline: none;
-        /* border: 0.5 solid #2d2d2d;
-        border-radius: 1em;
-        box-shadow: 1px 1px #888888;        
-        align-self: center; */
-    }
+    } */
 
-    .page-button:hover{
+    /* .page-button:hover{
         background-color: #2EE59D;
         box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
         color: #fff;
         transform: translateY(-5px);
-    }
+    } */
 
-    nav > ul {
+    /* nav > ul {
 		list-style-type: none;
 		display: flex;
-	}
+	} */
 </style>

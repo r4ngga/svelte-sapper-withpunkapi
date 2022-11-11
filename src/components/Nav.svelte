@@ -61,5 +61,6 @@
 		<li><a aria-current="{segment === 'coba' ? 'page' : undefined}" href="coba">coba ini</a></li>
 		<!-- <li><a rel=prefetch aria-current="{segment ==='test' ? 'page' : undefined}" href="test">halamantest</a></li> -->
 		<li><a aria-current="{segment === 'produk' ? 'page' : undefined}" href="produk">product</a></li>
+		<li><a aria-current="{segment === 'cart' ? 'page' : undefined}" href="cart">cart </a></li>
 	</ul>
 </nav>

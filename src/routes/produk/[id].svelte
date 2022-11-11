@@ -14,6 +14,59 @@
         const data = await res.json();
         return { data };
     }
+
+    function getLocalStorage()
+    {
+        return localStorage.getItem('itemsInCart');
+    }
+
+    function addItem (num, name, image_url, description, tagline){
+        const cek = window.localStorage.getItem('itemsInCart');
+        // console.log(JSON.parse(cek).id);
+        // console.log(cek);
+        // localStorage.setItem('itemsInCart', JSON.stringify({ id: id, name_item: name, year: year_brew }));
+
+        let getItem = getLocalStorage();
+        let newItem = {};
+        if(!getItem){
+            newItem =
+                {
+                    item_id: num,
+                    name: name,
+                    tag: tagline,
+                    image_url: image_url,
+                    total: 1,
+                    description: description,
+                };
+            getItem = localStorage.setItem('itemsInCart', JSON.stringify([newItem]));
+        }else{
+           let items = JSON.parse(getItem);
+
+            let findItem = items.filter(d => d.item_id == num);
+            if(findItem.length == 0){
+                newItem =
+                {
+                    item_id: num,
+                    name: name,
+                    tag: tagline,
+                    image_url: image_url,
+                    total: 1,
+                    description: description,
+                }
+
+                items = [...items, newItem];
+
+                updateItem(items);
+            }else{
+                newItem = findItem[0];
+            }
+        }
+
+    }
+
+    function updateItem (data){
+        return localStorage.setItem('itemsInCart', JSON.stringify(data));
+    }
 </script>
 
 <script>
@@ -110,7 +163,10 @@
         </div>
         <div class="row-center">
             <!-- <div class="col-center"> -->
-                <button id="svelte" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Order </button>
+                <button id="svelte" 
+                on:click={() => addItem(beer.id, beer.name, beer.image_url, beer.description, beer.tagline)}
+                type="button" 
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Order </button>
             <!-- </div> -->
             
         </div>
@@ -178,9 +234,9 @@
         padding: 2rem;
         margin: 1em;
         height: auto;
-        max-height: 50px;
+        max-height: 100px;
         width: auto;
-        max-width: 150px;
+        max-width: 200px;
         align-items: center;
         margin-left: auto;
         margin-right: auto;

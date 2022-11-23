@@ -1,6 +1,10 @@
 <script>
   import { get } from "svelte/store";
-
+  import ItemsCard from "../../components/ItemsCard.svelte";
+  import OrderFirstCard from "../../components/OrderFirstCard.svelte";
+  import FooterItemsCardGoShopping from "../../components/FooterItemsCardGoShopping.svelte";
+  import FooterItemsCardCheckout from "../../components/FooterItemsCardCheckout.svelte";
+  // import Nav from '../components/Nav.svelte';
 
     // import { itemsInCart } from "../../itemsInCart";
 
@@ -43,6 +47,22 @@
         // return localStorage.getItem('itemsInCart');
     }
 
+    function deleteItem(item_id){
+      let storedItem = JSON.parse(localStorage.getItem('itemsInCart'));
+      // console.log(storedItem.length);
+      for(let x = 0;x < storedItem.length; x++){
+        if(storedItem[x].item_id === item_id){
+          storedItem.splice(x, 1);
+        }
+
+        if(x == storedItem.length){
+          // menyembunyikan item
+        }
+      }
+      localStorage.setItem('itemsInCart', JSON.stringify(storedItem));
+      // console.log(storedItem);
+    }
+
     getItem();
 </script>
 
@@ -66,93 +86,35 @@
 
         <div class="mt-8">
           <div class="flow-root">
-            <ul  class="-my-6 divide-y divide-gray-200">
+            <ul class="-my-6 divide-y divide-gray-200">
               <!-- foreach getitem from localstorage -->
 
               {#if datalength != 0}
-                {#each datalength as data}
-                <li class="flex py-6">
-                    <div class="flex-shrink-0 overflow-hidden border border-gray-200 rounded-md h-30 w-30">
-                      <img src="{data.image_url}" alt="{data.name}" class="img-div" >
-                    </div>
-    
-                    <div class="flex flex-col flex-1 ml-4">
-                      <div>
-                        <div class="flex justify-between text-base font-medium text-gray-900">
-                          <h3>
-                            <a href="#">{data.name}</a>
-                          </h3>
-                          <!-- <p class="ml-4">$90.00</p> -->
-                        </div>
-                        <p class="mt-1 text-sm text-gray-500">{data.tag}</p>
-                      </div>
-                      <div class="flex items-end justify-between flex-1 text-sm">
-                        <p class="text-gray-500">Qty {data.total}</p>
-    
-                        <div class="flex">
-                          <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                {/each}
+              
+                <!-- {#each datalength as data} -->
+                   <ItemsCard />
+                <!-- {/each} -->
               {:else}
-              <li class="flex py-6">
-                
-
-                <div class="flex flex-col flex-1 ml-4">
-                 
-                    <div class="flex justify-between text-base font-medium text-gray-900">
-                      <h3>
-                        <a href="#">You need Order first in product</a>
-                      </h3>
-                    </div>
-                  
-                 
-                </div>
-              </li>
+                <OrderFirstCard />
               {/if}
-              <!-- <li class="flex py-6">
-                <div class="flex-shrink-0 w-24 h-24 overflow-hidden border border-gray-200 rounded-md">
-                  <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="object-cover object-center w-full h-full">
-                </div>
-
-                <div class="flex flex-col flex-1 ml-4">
-                  <div>
-                    <div class="flex justify-between text-base font-medium text-gray-900">
-                      <h3>
-                        <a href="#">Throwback Hip Bag</a>
-                      </h3>
-                      <p class="ml-4">$90.00</p>
-                    </div>
-                    <p class="mt-1 text-sm text-gray-500">Salmon</p>
-                  </div>
-                  <div class="flex items-end justify-between flex-1 text-sm">
-                    <p class="text-gray-500">Qty 1</p>
-
-                    <div class="flex">
-                      <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
-                    </div>
-                  </div>
-                </div>
-              </li> -->
-              <!-- More products... -->
+              
             </ul>
           </div>
         </div>
       </div>
       {#if datalength != 0}
-      <div class="px-4 py-6 border-t border-gray-200 sm:px-6">
-        <div class="flex justify-between text-base font-medium text-gray-900">
+      <FooterItemsCardCheckout />
+      <!-- <div class="px-4 py-6 border-t border-gray-200 sm:px-6">
+        <div class="flex justify-between text-base font-medium text-gray-900"> -->
           <!-- <p>Subtotal</p>
           <p>$262.00</p> -->
-        </div>
-        <p class="mt-0.5 text-sm text-gray-500">
+        <!-- </div> -->
+        <!-- <p class="mt-0.5 text-sm text-gray-500"> -->
             <!-- Shipping and taxes calculated at checkout -->
-            .
+            <!-- .
         </p>
         <div class="mt-6">
-          <a href="#" class="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Checkout</a>
+          <a href="produk" class="flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700">Checkout</a>
         </div>
         <div class="flex justify-center mt-6 text-sm text-center text-gray-500">
           <p>
@@ -164,9 +126,10 @@
           </p>
         </div>
         
-      </div>
+      </div> -->
       {:else}
-        <div class="px-4 py-6 border-t border-gray-200 sm:px-6">
+        <FooterItemsCardGoShopping />
+        <!-- <div class="px-4 py-6 border-t border-gray-200 sm:px-6">
             <div class="flex justify-center text-sm text-center text-gray-500">
                 <p>
                   <a href="produk" class="font-medium text-indigo-600 hover:text-indigo-500">
@@ -175,14 +138,14 @@
                   </a>
                 </p>
             </div>
-        </div>
+        </div> -->
       {/if}
     </div>
   </div>
   
 
   <style>
-     .img-div{
+     /* .img-div{
         margin-left: auto;
         margin-right: auto;
         align-items: center;
@@ -193,5 +156,5 @@
         max-height: 250px;
         width: auto;
         max-width: 250px;
-    }
+    } */
   </style>

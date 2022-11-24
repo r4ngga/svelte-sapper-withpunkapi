@@ -18,20 +18,9 @@
 
     function deleteItem(item_id){
       let storedItem = JSON.parse(localStorage.getItem('itemsInCart'));
-      // console.log(storedItem.length);
-      for(let x = 0;x < storedItem.length; x++){
-        if(storedItem[x].item_id === item_id){
-          storedItem.splice(x, 1);
-          
-        }
-
-        if(x == storedItem.length){
-          // menyembunyikan item
-        }
-      }
+      storedItem = storedItem.filter(item => item.item_id !== item_id);
       localStorage.setItem('itemsInCart', JSON.stringify(storedItem));
-      // console.log(storedItem);
-      location.reload();
+      datalength = storedItem; //value variable datalength ditimpa dengan value storedItem dalam fungsi sebelumnya 
     }
 
     getItem();

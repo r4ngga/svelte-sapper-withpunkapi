@@ -186,8 +186,7 @@
         justify-content: center;
     }
 
-    .button-order{
-        /* display: flex; */
+    /* .button-order{
         background-color: #ADD8E6;
         text-align: center;
         padding: 4px;
@@ -195,7 +194,7 @@
         font-size: medium;
         border-radius: 4px;
         border: 1px groove #F8F8FF;
-    }
+    } */
 
     .product-description{
         margin-left: auto;

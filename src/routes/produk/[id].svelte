@@ -61,7 +61,20 @@
                 newItem = findItem[0];
             }
         }
-
+        // alert('success');
+        Swal.fire({
+            title: 'Success Add Items',
+            showClass: {
+                popup: 'swal2-show 200sec',
+                backdrop: 'swal2-backdrop-show',
+                icon: 'swal2-icon-show'
+            },
+            hideClass: {
+                popup: 'swal2-hide',
+                backdrop: 'swal2-backdrop-hide',
+                icon: 'swal2-icon-hide'
+            }
+        });
     }
 
     function updateItem (data){
@@ -71,6 +84,7 @@
 
 <script>
   import { beforeUpdate } from "svelte";
+  import Swal from 'sweetalert2';
 
     export let data;
 </script>

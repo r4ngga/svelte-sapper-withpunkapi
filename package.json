@@ -18,7 +18,9 @@
     "polka": "next",
     "sapper-environment": "^1.0.1",
     "sirv": "^1.0.0",
-    "svelte-fa": "^3.0.3"
+    "svelte-fa": "^3.0.3",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.16"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

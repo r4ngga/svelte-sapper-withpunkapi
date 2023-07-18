@@ -1,5 +1,6 @@
 <script type="text/javascript">
     import fetch from 'node-fetch';
+    import SearchBar from '../../components/SearchBar.svelte';
 import Slug from '../blog/[slug].svelte';
    
     let datalength = Array();
@@ -50,6 +51,23 @@ import Slug from '../blog/[slug].svelte';
           
         return datalength; 
     }
+
+    let searchres = Array();
+    function searchProduct(name){
+        fetch(`https://api.punkapi.com/v2/beers?beer_name=${name}`)
+                .then(res => {
+                    return res.json();
+                })
+                .then( result => {
+                    var searcresp = result;
+                    // console.log(searcresp);
+                    // searcres = searcrest;
+                    searchres = result;
+                    console.log(searchres);
+                    return searcresp;
+                })
+        return searchres;
+    }
    
    callProductBeer();
 //    console.log(products);
@@ -62,19 +80,39 @@ import Slug from '../blog/[slug].svelte';
 
 <p>This is the 'product' page. There's will be show a product.</p>
 
+<SearchBar searchProduct={searchProduct}/>
 
 <div class="show-product">
+
+    {#if searchres.length > 0}
+        <!-- {searchres} -->
+        {#each searchres as resultsearchs}
+        <div class="card">
+            <img class="img-div" src="{resultsearchs.image_url}" alt="image-of-{resultsearchs.name}">
+
+            <div class="container">
+                <h4 class="product-name"><a class="px-3 py-1 m-4 border-2 border-solid rounded-md border-emerald-600" rel="prefetch" href="produk/{resultsearchs.id}">detail</a></h4>
+                <h4 class="name-product"><b style="width: 100%; height: auto;">{resultsearchs.name}</b></h4>
+                <p class="product-description">{resultsearchs.description}</p> 
+            </div>
+        </div>
+            <!-- {resultsearchs.name}, {resultsearchs.tagline}, {resultsearchs.description} -->
+        {/each}
+    {:else}
+
     {#each datalength as product}
     <div class="card">
-        <img class="img-div" src="{product.image_url}" alt="">
+        <img class="img-div" src="{product.image_url}" alt="image-of-{product.name}">
 
         <div class="container">
-            <h4><a class="product-name" rel="prefetch" href="produk/{product.id}">detail</a></h4>
-            <h4 class="name-product"><b>{product.name}</b></h4>
+            <h4 class="product-name"><a class="px-3 py-1 m-4 border-2 border-solid rounded-md border-emerald-600" rel="prefetch" href="produk/{product.id}">detail</a></h4>
+            <h4 class="name-product"><b style="width: 100%; height: auto;">{product.name}</b></h4>
             <p class="product-description">{product.description}</p> 
         </div>
     </div>
     {/each}
+
+    {/if}
 </div>
 
 <div class="page-nav">
@@ -94,7 +132,17 @@ import Slug from '../blog/[slug].svelte';
     }
 
     .product-name{
+        /* left: 50%;
+        top: 50%;
+        position: fixed; */
+        /* padding: 2rem;
+        margin: 1em; */
+        height: auto;
+        width: auto;
+        max-width: 150px;
         align-items: center;
+        margin-left: auto;
+        margin-right: auto;
         justify-content: center;
     }
 
